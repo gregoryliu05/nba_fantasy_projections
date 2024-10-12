@@ -1,0 +1,42 @@
+
+
+table tbody tr:hover {
+    background-color: rgba(255, 255, 0, 0.639); /* This will change the background to yellow */
+  }
+
+table {
+color: black;
+  border: 1px solid black;
+}
+
+td {
+    color: black;
+  border: 1px solid black;
+}
+
+th {
+    color: rgba(255, 0, 0, 0.569);
+    font-family: 'Lato', sans-serif;
+    width: auto;
+  white-space: nowrap; /* Ensures that the text won't wrap and the column adjusts to fit */
+  padding: 10px;
+}
+
+td {
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    padding: 2px;
+    text-align: center;
+}
+
+tr {
+    color: black;
+    border: 3px solid black;
+}
+
+p {
+  font-size: large;
+  font-family: 'Open Sans', sans-serif;
+    padding: 2px;
+    text-align: left;
+}
