@@ -2,72 +2,54 @@ import { useEffect, useState } from 'react'
 import playerService from './services/forms'
 import './App.css'
 
-
-const Table = (props) => {
-  const {players} = props
-
-  if (!players) {
-    return (
-      <table>
-      <thead>
-        <tr>
-          <th>Player</th>
-          <th>Overall Score
-            <button onClick = {() => {console.log("lol")}}> </button>
-          </th>
-          <th>Average Fantasy Points 2024</th>
-          <th>Projected Fantasy Points 2025</th>
-          <th>Consistency</th>
-          <th>Injury Risk</th>
-          <th>Consistency and Injury Risk</th>
-          <th>Position</th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr> 
-        <td> Loading Table...</td>
-      </tr>
-      </tbody>
-      </table>
-    )
-  } else {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Player</th>
-            <th>Overall Score</th>
-            <th>Average Fantasy Points 2024</th>
-            <th>Projected Fantasy Points 2025</th>
-            <th>Consistency</th>
-            <th>Injury Risk</th>
-            <th>Consistency and Injury Risk</th>
-            <th>Position</th>
-          </tr>
-        </thead>
-        <tbody>
-       {players.map((player, index) => (
-          <tr key = {index}>
-            <td>{index+1}</td>
-            <td> {player.player}</td>
-            <td> {player.overallScore}</td>
-            <td> {player.averageFPTS}</td>
-            <td> {player.projectedFPTS}</td>
-            <td> {player.consistency}</td>
-            <td> {player.injuryRisk}</td>
-            <td> {player.consistencyInjuryRisk}</td>
-            <td> {player.position}</td>
-          </tr>
-        ))}
-        </tbody>
-      </table>
-    )
-  }
-  
+const Button = (props) => {
+  const {text, onClick} = props
+  return (
+    <button className = " px-4 py-2 border-black border border-dashed hover:bg-gray-100" onClick = {onClick}>{text}</button>
+  )
 }
 
+const Table = (props) => {
+  const { players, sortAscDesc } = props;
 
+  return (
+      <table className="table-auto w-full border border-collapse">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2 text-left">rank</th>
+            <th className="px-4 py-2 text-left">player</th>
+            <th className="px-4 py-2 text-left">overall score</th>
+            <th className="px-4 py-2 text-left">average fantasy points 2024</th>
+            <th className="px-4 py-2 text-left">projected fantasy points 2025</th>
+            <th className="px-4 py-2 text-left">consistency</th>
+            <th className="px-4 py-2 text-left">injury risk</th>
+            <th className="px-4 py-2 text-left">consistency and injury risk</th>
+            <th className="px-4 py-2 text-left">position</th>
+          </tr>
+        </thead>
+        {players?<tbody>
+          {players.map((player, index) => (
+            <tr key={index} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-100`}>
+              <td className="px-4 py-2">{sortAscDesc ? index + 1 : players.length - index}</td>
+              <td className="px-4 py-2">{player.player}</td>
+              <td className="px-4 py-2">{player.overallScore}</td>
+              <td className="px-4 py-2">{player.averageFPTS}</td>
+              <td className="px-4 py-2">{player.projectedFPTS}</td>
+              <td className="px-4 py-2">{player.consistency}</td>
+              <td className="px-4 py-2">{player.injuryRisk}</td>
+              <td className="px-4 py-2">{player.consistencyInjuryRisk}</td>
+              <td className="px-4 py-2">{player.position}</td>
+            </tr>
+          ))}
+        </tbody>:
+        <tbody>
+        <tr>
+          <td className="px-4 py-2" colSpan="8">loading table...</td>
+        </tr>
+      </tbody>}
+      </table>
+    );
+};
 
 const  App = () => {
   const [players, setPlayers] = useState(null)
@@ -138,20 +120,19 @@ const  App = () => {
   
   return (
       <>
-        <p> Fantasy Projections Rankings</p>
+        <p className="text-4xl text-center"> fantasy projections rankings</p>
         <header>
-        <button onClick = {() => handleClick(0)}> Sort By Name</button>
-        <button onClick = {() => handleClick(1)}> Sort By Overall Score</button>
-        <button onClick = {() => handleClick(2)}> Sort By Avg Fantasy Points</button>
-        <button onClick = {() => handleClick(3)}> Sort By Projected Fantasy Points</button>
-        <button onClick = {() => handleClick(4)}> Sort By Consistency</button>
-        <button onClick = {() => handleClick(5)}> Sort By Injury Risk</button>
-        <button onClick = {() => handleClick(6)}> Sort By C+ IR</button>
-        {(sortAscDesc)? 
-        <p>Descending</p>:
-        <p>Ascending</p>}
+          <p>sort by: </p>
+          <div></div>
+        <Button text = 'name' onClick = {() => handleClick(0)}></Button>
+        <Button text = 'overall score' onClick = {() => handleClick(1)}></Button>
+        <Button text = 'avg fantasy points' onClick = {() => handleClick(2)}></Button>
+        <Button text = 'projected fantasy points' onClick = {() => handleClick(3)}></Button>
+        <Button text = 'consistency' onClick = {() => handleClick(4)}></Button>
+        <Button text = 'injury risk' onClick = {() => handleClick(5)}></Button>
+        <Button text = 'c+ ir' onClick = {() => handleClick(6)}></Button>
         </header>
-        <Table players = {players}/>
+        <Table players = {players} sortAscDesc = {sortAscDesc}/>
       </>
     )
   
