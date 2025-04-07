@@ -9,7 +9,6 @@ from statistics import linear_regression
 from models import Player
 from config import db
 
-# INSTEAD OF CSV, MAYBE I COULD ADD EACH YR AS A ROW TO A SQL TABLE
 def get_2_seasons_data(yr1, yr2, input_df):
     nba_df = input_df
     yr1_fpts = []
